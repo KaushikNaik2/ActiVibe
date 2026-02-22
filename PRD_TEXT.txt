@@ -1,0 +1,1445 @@
+DEMO PROTOTYPE PRD — EXECUTION BRIEF
+ActiVibe
+Where Action Meets Community.
+Four demo beats. Eight screens. One story.
+Expo React Native · Supabase · expo-location GPS · NativeWind ·
+Zustand
+For
+Antigravity — development execution team
+Hackathon Domain
+Domain 3: Smart Living — Centralized event portal, attendance
+tracking, participation history, basic notifications, simple for non-
+technical NGOs
+Version
+Demo PRD v1.0 — Stripped to demo essentials only
+Screens In Scope
+8 screens. Everything the judge sees in 90 seconds.
+Screens Out of Scope
+Live Control Room, Chat, CV Generator, Emergency Mode, AI Role
+Generator, NGO Tiers, Staff Roles, Directory, Search. Full PRD exists
+— not built for demo.
+Features IN Scope
+GPS geofence auto check-in + timer pause/resume · Post limit
+
+---PAGE BREAK---
+enforcement · Manual endorsements with quota · DEV simulate
+buttons · Anti-scam location guard · Dark mode
+Features OUT of Scope
+Skill-based For You feed tab · Full social sharing suite (Instagram/
+X/PDF) · Private chat · CV generator · Emergency mode · NGO tier
+system
+Differentiator
+GPS geofence auto attendance + active-time tracking + manual
+endorsements + engagement reports. No other team will have this.
+Pitch Sentence
+Other tools track registrations. We track real-world participation —
+GPS-verified hours, automatically logged, zero manual NGO input.
+🎯 1. The Four Demo Beats
+Everything built serves one of these four moments. If a feature
+doesn't appear here, it isn't built for demo.
+The judge is evaluating Domain 3. They need to see four things.
+These four beats are the only acceptance criteria that matters on
+demo day.
+Beat
+Domain 3 Requirement
+What the Judge Sees
+Screen
+Beat 1 Centralized Portal
+NGO posts events and collects volunteer registrations
+
+---PAGE BREAK---
+NGO creates a drive in under 90 seconds. Drive appears publicly.
+Volunteer registers with one tap.
+S4 Create Drive → S3 Feed
+Beat 2 Attendance Tracking
+Automated attendance tracking system
+Volunteer walks into the GPS geofence. Check-in fires
+automatically. Timer starts. No button pressed. No NGO action
+required.
+S5 Live Map
+Beat 3 Engagement Reports
+Generates engagement reports
+NGO opens Drive Analytics. Sees every volunteer, their exact active
+time in zone, attendance rate, role fill. All automatic.
+S7 Analytics
+Beat 4 Participation History
+Logs participation history
+Volunteer sees a performance card: GPS-verified hours, tasks,
+endorsements. Shareable. Permanent. On their profile forever.
+S6 Profile + S8 Perf Card
+Nuclear Differentiator
+Beat 2 wins the room. Most teams will build a "Mark Attendance"
+button or a QR scan. You will show GPS coordinates updating on
+screen, a geofence circle pulsing on the map, and a timer starting
+automatically the moment a volunteer steps inside. That is smart
+living automation. Lead with it.
+
+---PAGE BREAK---
+🎨 2. Design System — Complete Token Reference
+Apply these tokens consistently. No ad-hoc values. Dark mode
+supported via system preference.
+2.1 Colours
+Token
+Hex
+Used On
+brand
+#5B4FCF
+Primary buttons, active tab, verified badges, headings, focus rings
+brandLight
+#EEEEFF
+Chip backgrounds, selected fill, callout accent backgrounds
+brandDark
+#3730A3
+Pressed states, callout left-border, dark surface headings
+ink
+#0F0E17
+All primary text — near-black with purple warmth
+inkLight
+#3D3A54
+
+---PAGE BREAK---
+Card subtitles, secondary body, descriptions
+inkMuted
+#7B78A0
+Timestamps, captions, placeholders, metadata
+surface
+#F9F9FB
+Screen background — warm off-white
+card
+#FFFFFF
+Feed cards, modals, bottom sheets, form containers
+border
+#E4E4F0
+Card outlines, input borders, divider lines
+green
+#059669
+GPS check-in confirmed, timer running, verified pill, task complete
+greenLight
+#D1FAE5
+Verified badge background, success state fill
+amber
+#D97706
+Outside geofence warning, timer paused, post-event badge
+
+---PAGE BREAK---
+amberLight
+#FEF3C7
+Warning banners, outside-zone card fill
+red
+#DC2626
+End drive, errors, destructive actions
+teal
+#0D9488
+Skill match nudge, "For You" label, endorsement recommendation
+tealLight
+#CCFBF1
+Skill match card background, recommendation card fill
+2.2 Dark Mode
+useColorScheme() from React Native detects OS preference
+automatically. Small sun/moon toggle on Splash and Settings.
+Zustand darkMode boolean persists via AsyncStorage.
+Surface Token
+Light
+Dark
+Screen bg
+#F9F9FB
+
+---PAGE BREAK---
+#0F0E17
+Card
+#FFFFFF
+#1A1828
+Border
+#E4E4F0
+#2D2B45
+Primary text
+#0F0E17
+#F0EFFF
+Secondary text
+#3D3A54
+#A09ABF
+2.3 Typography (Inter throughout)
+Role
+Size
+Weight
+Colour
+Where
+Display
+
+---PAGE BREAK---
+32sp
+800 ExtraBold
+ink
+Splash hero, check-in celebration, perf card headline
+H1
+26sp
+700 Bold
+ink
+Screen titles, volunteer name on profile
+H2
+20sp
+700 Bold
+brand
+Section headers, card group titles
+H3
+17sp
+600 SemiBold
+ink
+Card titles, drive names, role titles
+Body
+15sp
+400 Regular
+
+---PAGE BREAK---
+ink
+All body copy, drive descriptions, captions
+Body Sm
+13sp
+400 Regular
+inkLight
+Secondary info, task text, timestamps
+Caption
+11sp
+400 Regular
+inkMuted
+Metadata, verified-source labels, counts
+Button
+15sp
+600 SemiBold
+white
+All button labels
+Mono
+13sp
+400 Regular
+inkLight
+Live timer HH:MM:SS, GPS coordinates, active hours
+
+---PAGE BREAK---
+2.4 Spacing, Radius & Touch
+Token
+Value
+Applied To
+Screen H-Pad
+16dp
+Horizontal padding on every ScrollView content container
+Card Pad
+16dp
+Internal padding of every card, bottom sheet, form panel
+Gap tight
+8dp
+Icon-to-label, inline sibling elements
+Gap cards
+12dp
+Between feed cards, list items
+Gap section
+24dp
+Between major sections on a screen
+radius-sm
+8dp
+
+---PAGE BREAK---
+Input fields, compact chips, small badges
+radius-md
+12dp
+Standard cards, bottom sheets
+radius-lg
+20dp
+Hero cards, primary CTA buttons, large modals
+radius-full
+9999dp
+Avatar circles, pill badges, status dots
+Min Touch
+48dp
+Every tappable element — WCAG AA. Never smaller.
+2.5 Reusable Components — Build Once
+Build these 8 primitives first. Every screen imports them. No inline
+styles that duplicate these.
+Component
+States / Variants
+Visual & Behaviour Spec
+PrimaryButton
+
+---PAGE BREAK---
+variant: brand | red | teal | outline loading: bool disabled: bool
+52dp height, radius-lg, full-width. brand: brand fill, white 15sp
+SemiBold. red: red fill. teal: teal fill. outline: transparent fill, brand
+border. loading: ActivityIndicator replaces label. disabled: 40%
+opacity, not pressable. Reanimated press: scale 1→0.97, spring
+damping 15 stiffness 200.
+AvatarCircle
+size: 32|44|52|64|88dp statusDot: green|amber|gray|null
+Circular image, 2dp white ring. statusDot: 8dp circle bottom-right,
+colour-matched. No dot prop = no dot rendered. overflow:hidden
+circle mask.
+VerifiedBadge
+variant: live | post_event | gps_verified
+live: greenLight bg, green text "GPS Verified ✓", 11sp SemiBold.
+post_event: amberLight, amber, "Post-Event". gps_verified: same as
+live but static (no pulse). H 22dp, radius-full, 10dp H-pad. Primary
+visual on all volunteer-related cards.
+DriveStatusPill
+status: upcoming|live|ended
+upcoming: amber outline, "Upcoming". live: green fill + 6dp
+animated pulse dot (scale 1→1.3→1 every 1.5s), "Live". ended:
+gray, "Ended". H 20dp, radius-full, 9dp H-pad, 10sp SemiBold.
+SectionHeader
+title, actionLabel?, onAction?
+Row: H2 title left, actionLabel brand 13sp right. 24dp top margin
+when following content, 0 when first on screen.
+CategoryChip
+
+---PAGE BREAK---
+label, selected: bool
+selected: brand fill, white 13sp SemiBold. unselected: gray100,
+inkMuted. H 34dp, radius-full, 14dp H-pad. 200ms colour
+transition.
+SkillPill
+category, tier: endorsed|inferred|self
+endorsed: solid category fill, white text, "✓" right — requires NGO
+manual award. inferred: same fill, no tick. self: outline only. H
+24dp, radius-full.
+StatCard
+value, label, trend?, colour?
+White card, radius-xl, 16dp pad. Value 24sp Bold brand (or colour
+prop). Label 13sp inkMuted below. Optional trend: green ↑ or red ↓
++ % 11sp. Used on Analytics screen and NGO Dashboard.
+🗺️ 3. Navigation & Global State
+Expo Router file tree and Zustand stores for the demo scope.
+3.1 File Tree (Demo Scope Only)
+Route Structure
+app/ _layout.tsx Root: Supabase auth guard → routes to volunteer |
+ngo shell index.tsx → S1 Splash / Landing (auth)/ login.tsx → S2
+Auth (Volunteer + NGO login) onboarding.tsx → S2B Volunteer
+skill selection (post-auth) ngo-register.tsx → S2C NGO registration
+(name + city + PAN) (volunteer)/ _layout.tsx Tab navigator: Feed
+| Drives | Map | Profile feed.tsx → S3 Community Feed drives/
+[id].tsx → S3B Drive Detail (register + task board) map.tsx → S5
+
+---PAGE BREAK---
+Live Geofence Map profile/[id].tsx → S6 Volunteer Profile &
+Verified Hours notifications.tsx → S3C Notifications (broadcast
+hub) (ngo)/ _layout.tsx Tab navigator: Feed | Drives | Analytics |
+Profile feed.tsx → S3 NGO Feed (same component, different data)
+drives/ index.tsx → S4A Drives List (NGO) create.tsx → S4 Create
+Drive [id]/badges.tsx → S7 Drive Analytics + Endorsement Awards
+(combined screen) (shared)/ performance-card.tsx → S8
+Performance Card (volunteer + NGO view) +not-found.tsx
+3.2 Zustand Stores (Demo Scope)
+Store
+Fields
+Purpose
+authStore
+user: {id, name, avatarUrl, role: volunteer|ngo} | null session:
+SupabaseSession | null darkMode: boolean loading: boolean
+Set by Supabase onAuthStateChange. darkMode from
+useColorScheme() on first load. Read by every screen. Logout clears
+all stores.
+activeEventStore
+activeDrive: {driveId, driveName, ngoId, ngoName, checkinId} |
+null timerSeconds: number inZone: boolean
+Set on POST /checkins success. timerSeconds increments every
+second via useFrameCallback ONLY when inZone=true. Pauses
+(does not reset) when inZone=false. Cleared on checkout.
+feedStore
+posts: Post[]
+
+---PAGE BREAK---
+TanStack Query manages fetching. feedTab persists chip selection.
+notifStore
+items: Notification[] unread: number
+Seeded with 4 hardcoded items. unread drives bell badge on nav
+bar.
+📱 4. Screen S1 — Splash & Landing
+First impression. Dual portal entry. 5-second product pitch.
+S1
+Splash / Landing
+Public · No auth · 100% static
+▼ Scroll for component spec
+Route
+index.tsx (root)
+Purpose
+Communicate the one-line value prop in 5 seconds. Route to correct
+auth flow per role.
+Data
+Zero API calls. Fully static.
+Dark Mode
+This screen always uses the dark hero treatment — ink background
+regardless of system theme. It's a brand decision.
+
+---PAGE BREAK---
+Component
+States / Variants
+Visual & Behaviour Spec
+Background
+ink (#0F0E17) full-screen
+Slow animated gradient mesh — three translucent brand-purple
+blob shapes move at 0.15dp/frame via Reanimated withRepeat +
+withTiming. Infinite loop. Creates depth without distraction. Dark
+and light mode identical on this screen only.
+Dark Mode Toggle
+Sun/moon pill, top-right
+28dp Pressable. System icon. Initially reflects useColorScheme() OS
+preference. On tap: toggles authStore.darkMode. All subsequent
+screens respect this toggle.
+Logo & Wordmark
+SVG, top-centre, 48dp from safe area
+"ActiVibe" white wordmark. Animated pulse-dot (8dp, green, scale
+1→1.2→1 every 2s, Reanimated withRepeat) beside the A. FadeIn
+on mount 400ms.
+Hero Headline
+Display 32sp ExtraBold, centred, white
+"Where action meets community." Below: "GPS-verified
+volunteering. Real hours. Real impact." 15sp Regular, #9090B8,
+centred, max 2 lines.
+Three Feature Cards
+Horizontal paging ScrollView, snap
+
+---PAGE BREAK---
+Card 1 (brand gradient): 📍 "GPS auto check-in. No manual
+attendance." Card 2 (indigo gradient): 📊 "Live engagement reports.
+Zero spreadsheets." Card 3 (green gradient): 🏅 "Verified hours on
+your profile. Forever." Each: 260×155dp, radius-xl, 16dp pad,
+white icon + white text.
+How It Works
+3-step strip, surface-coloured section below cards
+Step 1: NGO posts a drive → Step 2: Volunteer GPS auto check-in →
+Step 3: Hours logged, reports generated. Step numbers 20sp Bold
+brand. Arrow separators inkMuted.
+CTA Footer
+Sticky, white card, top shadow
+PrimaryButton brand: "I'm a Volunteer" full-width 52dp.
+PrimaryButton outline: "I'm an NGO" 52dp below, 12dp gap. Both
+fixed above bottom safe area.
+🔑 5. Screen S2 — Auth, NGO Registration & Skill Onboarding
+Simple login. NGO collects name + city + PAN. Volunteer picks
+skills.
+S2
+Auth + Onboarding
+Public → Auth · Supabase Auth live
+▼ Scroll for component spec
+Routes
+/(auth)/login → /(auth)/onboarding (volunteer) | /(auth)/ngo-
+register (ngo)
+
+---PAGE BREAK---
+Live API
+Supabase Auth — Google OAuth + email/password. Writes users
+row on first sign-up.
+Routing
+Post-auth: role==="volunteer" → skill onboarding → feed.
+role==="ngo" → ngo-register → ngo feed.
+Sub-screen A — Login Card
+Component
+States / Variants
+Visual & Behaviour Spec
+Screen
+surface bg, ActiVibe logo top-centre
+surface (#F9F9FB) or dkSurf in dark mode. Logo 40dp from safe
+area. Dark mode toggle pill top-right (persists from S1).
+Auth Card
+white/dkCard, radius-xl, 24dp pad
+Vertically centred. Max-width 380dp on tablet. Contains all fields.
+Role Selector
+"I am a…" segmented pill
+"Volunteer" | "NGO". Selected: brand fill, white 13sp SemiBold.
+Unselected: gray100, inkMuted. 200ms colour transition on tap.
+Stores role for routing.
+Google Sign-In
+
+---PAGE BREAK---
+Primary action, full Google spec
+52dp, radius-lg, white bg, gray border, Google G icon left,
+"Continue with Google" ink 15sp. Full-width. MUST work live for
+demo.
+OR Divider
+Separator between OAuth and email
+12dp margins. "or" inkMuted centred. Gray200 lines to card edges.
+Email + Password
+Controlled TextInputs
+52dp each, radius-md, gray200 border. Brand focus ring. Eye toggle
+on password. Signup: confirm password field + live match
+validation. Error: red border + red 11sp helper text below field.
+Submit Button
+PrimaryButton brand
+"Sign In" or "Create Account". Disabled at 40% opacity until
+email+password valid. Loading spinner during Supabase call.
+Toggle Mode
+Text link below button
+"Don't have an account? Sign up" / "Already have one? Sign in".
+Brand 15sp, centred.
+Error Toast
+Slides up from bottom, auto-dismiss 4s
+Red bg, white 13sp text, radius-lg. Shows Supabase error message.
+Sub-screen B — Volunteer Skill Onboarding
+
+---PAGE BREAK---
+Component
+States / Variants
+Visual & Behaviour Spec
+Header
+Brand gradient, fixed top
+brand→brandMid gradient. "Step 1 of 1" pill right. "What are your
+strengths?" white H1. "We'll show you relevant drives." white 15sp.
+Skill Category Grid
+2-column FlatList, 7 cards
+Each card: 160×100dp, radius-xl. Default: white bg, 2dp category-
+colour border, category icon 32dp, name 15sp Bold. Selected: solid
+category fill, white icon+text, scale(1.03) spring (damping 15,
+stiffness 180). Multi-select. Min 1 required.
+Counter + CTA
+"X selected" label + sticky button
+"X categories selected" inkMuted 13sp centred, updates live.
+PrimaryButton brand "Let's Go →" sticky above bottom safe area.
+Disabled until 1+. On confirm: writes skill_tags to Supabase →
+navigates to feed.
+Sub-screen C — NGO Registration
+Component
+States / Variants
+Visual & Behaviour Spec
+
+---PAGE BREAK---
+Form Card
+white, radius-xl, 24dp pad
+Scrollable. All fields in one card. 12dp gap between fields.
+Organisation Name
+Required TextInput
+Label "Organisation Name" 11sp SemiBold. 52dp, radius-md,
+gray200 border. Brand focus ring. maxLength 120.
+Registered City
+Google Places autocomplete
+Tap → suggestions dropdown. Selection stores city name + lat/lng
+coordinates. Used for anti-scam distance check at drive creation.
+PAN Number
+Required, uppercase forced
+Label "PAN Number". Auto-uppercase. Regex validation: 5 letters +
+4 digits + 1 letter (AAAPL1234C). Error helper if invalid. Info icon
+→ tooltip: "Required for 80G/12A compliance verification."
+Cause Area
+Multi-chip selector, min 1
+7 category chips. Tap to select (brand fill). Min 1 required. Max 3.
+Submit
+PrimaryButton brand
+"Register Organisation". Disabled until Name + valid PAN + City.
+On success → NGO Feed.
+PAN Notice
+
+---PAGE BREAK---
+teal callout below button
+"PAN will be reviewed for 80G/12A compliance. You can post
+drives immediately." Teal left-bar box.
+📰 6. Screen S3 — Community Feed
+The home screen. Drive discovery + skill-matched posts + verified
+volunteer posts.
+S3
+Community Feed
+Auth Required · Volunteer + NGO shared component
+▼ Scroll for component spec
+Route
+/(volunteer)/feed and /(ngo)/feed
+Feed Logic
+Single feed, reverse-chronological. Drive recommendation card
+injected at index 3. Seed data for demo.
+Live API
+POST /posts (composer). GET /feed (seed data for demo). Skill-
+match tab is client-filtered from feed data.
+Post Rule
+Volunteer composer BAR only renders when activeDrive is set in
+Zustand AND inZone=true AND postCount < postLimit. Absent
+otherwise — never greyed out.
+
+---PAGE BREAK---
+Component
+States / Variants
+Visual & Behaviour Spec
+Nav Bar
+Fixed, white/dkCard, border-b
+"ActiVibe" wordmark 17sp Bold brand left. Right: bell icon with red
+numeric NotificationBadge (hidden when 0) + dark mode toggle
+28dp Pressable. Scroll-down: translateY(-56) Animated. Scroll-up:
+translateY(0). Duration 250ms.
+Drive Filter Chips
+Horizontal chip row below nav bar
+"All" | "Drives" | "Updates" chips. Filters feed by content type.
+Selected: brand fill. Unselected: gray100. Persists per session.
+Active Drive Banner
+Conditional — only when activeDrive set in Zustand
+Brand gradient bg. Left: animated green dot (scale 1→1.3→1, 2s,
+Reanimated withRepeat) + drive name 15sp Bold white. Right:
+HH:MM:SS white Mono — amber + "(paused)" text when
+inZone=false. Full row Pressable → S3B Drive Detail.
+Post Composer Bar
+Conditional — inZone=true AND postCount < postLimit
+White card, radius-md, border. AvatarCircle 36dp left. "Share from
+[Drive]… (2/5 posts used)" inkMuted 15sp. Camera icon right in
+brand. Full bar Pressable → composer modal. ABSENT (not greyed)
+when outside zone or limit reached.
+Stories Row — Nearby Drives
+Horizontal ScrollView, no snap
+
+---PAGE BREAK---
+Label "Drives Near You" 13sp SemiBold inkMuted. Each circle:
+72dp, 2dp brand ring, NGO logo. Name 11sp centred below.
+"REGISTER" green pill on open drives. "LIVE" green animated pill on
+active drives. Gradient mask L+R edges. Tap → Drive Preview
+bottom sheet.
+Feed Card — NGO Drive Post
+White card, radius-xl, shadow 0,2,8,rgba(0,0,0,.07)
+[1] Header: NGO AvatarCircle 44dp, name 15sp Bold,
+"#DriveName" pill brandLight, timestamp 11sp inkMuted, 3-dot
+menu. [2] Caption 15sp, 3 lines, "See more" expand. [3] Image full-
+width, 16:9, radius-xl, 12dp H-margin, carousel dots if multiple. [4]
+Actions: heart+count, comment+count, share. [5] "Register for
+Drive" teal CTA pill — on drive announcement posts only.
+Feed Card — Volunteer Post
+Same base, 2 key differences
+[1] Author: "Arjun at Greenpeace Mumbai" with volunteer avatar.
+[2] VerifiedBadge (live or post_event) immediately below author
+row — this is the PRIMARY visual element on the card. Makes
+verified posting viscerally different from unverified. Caption +
+media same structure.
+Drive Recommendation Card
+Injected at list index 3
+White card, 3dp teal left border, tealLight bg. "✨ Matched for You"
+teal 13sp SemiBold. "[NGO] needs [Skill] at [Drive] on [Date]."
+"View Drive →" teal right. Pressable → S3B.
+Post Composer Modal
+Full-screen, slide-up
+Header: X close left + "Post" brand pill right (disabled until content
+added). Auto-applied VerifiedBadge pill. AvatarCircle + TextInput
+"What's happening at [Drive]?". Bottom: camera, auto-location,
+
+---PAGE BREAK---
+auto-tag @NGO + #Drive. 500 char limit. "Post X of Y for this
+drive" counter.
+Bottom Tab Bar
+4 tabs (volunteer) / 4 tabs (ngo)
+Volunteer: Feed (house) | Drives (calendar) | Map (location-pin) |
+Profile (person). NGO: Feed (house) | Drives (calendar) | Analytics
+(bar-chart) | Profile. Active: brand filled icon + brand label 11sp
+SemiBold. Inactive: gray400 outline + inkMuted label 11sp. White
+bg, 1dp top border. Safe area bottom pad.
+📅 7. Screen S4 — Create Drive (Beat 1: Centralized Portal)
+NGO creates a public drive in under 90 seconds. This is Beat 1 of
+the demo.
+S4
+Create Drive
+NGO Admin | Founder · /(ngo)/drives/create
+▼ Scroll for component spec
+Beat
+Beat 1 — Centralized event portal. Drive is posted publicly.
+Volunteers self-register.
+Live API
+POST /drives — writes to Supabase. Drive appears in Feed and
+Drives tab immediately.
+Key Rule
+Anti-scam: if drive location > 200km from NGO registered city →
+
+---PAGE BREAK---
+amber warning modal. > 1000km → hard block.
+Simplicity
+Form has 6 fields. Everything optional is hidden by default. Non-
+technical NGO staff can complete this in 90 seconds.
+Component
+States / Variants
+Visual & Behaviour Spec
+Screen Header
+Nav bar with back + save draft
+"Create Drive" 17sp Bold centred. Back chevron left. "Save Draft"
+brand text right.
+Form Card
+white/dkCard, radius-xl, 16dp pad
+Single card, all 6 fields, 12dp gap between. Clean, no excess
+chrome. One card = one mental model.
+Drive Name
+Required TextInput
+Label "Drive Name" 11sp SemiBold. 52dp, radius-md, gray200.
+Brand focus ring. Placeholder: "e.g. Versova Beach Cleanup".
+maxLength 100. Character counter 0/100 bottom-right.
+Date & Time
+Pressable row → Expo DateTimePicker
+"Date & Time" label. Shows selected value or "Choose date and time"
+inkMuted. Native date picker on tap.
+
+---PAGE BREAK---
+Location
+Google Places autocomplete + mini map preview
+"Drive Location" label. Places suggestions on type. On selection: lat/
+lng stored. 120dp MapView preview renders below field with brand
+pin at location. Anti-scam check runs on selection: > 200km from
+NGO city → amber warning modal "This drive is Xkm from your
+registered city. Is this correct?" [Yes, Proceed] [Change Location].
+> 1000km → hard block modal, no proceed option.
+Check-In Zone
+"Set Zone" CTA → full-screen MapView
+Tap "Set Check-In Zone" opens full-screen MapView. Drive lead taps
+map to place centre point. Slider below: "Zone Radius: [500]m"
+range 100–2000m. MapCircle updates in real time. "Confirm Zone"
+brand CTA returns to form with zone thumbnail showing radius and
+area.
+Volunteer Spots
+Number stepper
+± steppers. Range 5–500. Default 30. "0 of 30 registered" shown
+below.
+Post Limit
+Number stepper
+"Posts per volunteer: [5]". Range 1–10. Default 5. This enforces
+authentic posting.
+Publish Button
+PrimaryButton brand, sticky footer
+"Publish Drive". White sticky footer card, top shadow. Tap →
+confirmation modal: drive name, date, spots, post limit. "Confirm &
+Publish" + "Edit More". On confirm: POST /drives → navigate to
+
+---PAGE BREAK---
+N1 Feed with success toast "Drive published! Volunteers can now
+register."
+📍 8. Screen S5 — Live Geofence Map (Beat 2: Attendance
+Tracking)
+The nuclear differentiator. GPS auto check-in. Timer starts
+automatically. No button pressed.
+S5
+Live Geofence Map
+Auth Required · /(volunteer)/map · P0 — Build Absolutely First
+▼ Scroll for component spec
+Beat
+Beat 2 — Automated attendance tracking. Volunteer enters GPS
+zone. Check-in fires. Timer starts. Zero manual action.
+Live API
+expo-location watchPositionAsync — real device GPS. POST /
+checkins — real Supabase write. PATCH /checkins/{id} on
+checkout.
+Timer Rule
+timerSeconds counts ONLY when inZone=true. Pauses (does not
+reset) when inZone=false — volunteer has stepped outside.
+Resumes on re-entry. This is the core tracking mechanism.
+DEV Buttons
+When __DEV__===true: "DEV: Simulate Entry" pill + "DEV:
+Simulate Post" pill appear. Essential for demo. Remove before
+production.
+
+---PAGE BREAK---
+Build This First
+This is Beat 2. If this screen fails in the demo, you have no
+differentiator. Build V4 first. Get the GPS working. Get the
+Supabase checkin writing. Get the timer pausing correctly on zone
+exit. Test it on a physical device. Everything else is secondary.
+Component
+States / Variants
+Visual & Behaviour Spec
+Map Canvas
+MapView, position:absolute, inset:0
+Fills entire screen behind the bottom status card. Custom JSON map
+style: desaturated base, brand-purple road highlights, dark water.
+Camera animates smoothly to user position on first GPS fix
+(animateCamera, 800ms).
+Geofence Circle
+MapCircle overlay
+radius: drive.geofence_radius_m (default 500m). fillColor:
+rgba(91,79,207,0.12). strokeColor: #5B4FCF, 2dp solid. Outer pulse
+ring: second MapCircle at 1.15x radius, 6% opacity, scale animates
+1→1.15→1 every 2.5s via Reanimated withRepeat. Breathing
+heartbeat effect. This is the visual centrepiece of the demo.
+Venue Marker
+Custom teardrop MapMarker
+Brand-colour teardrop. NGO logo 28dp circular inside. Tap →
+compact callout: drive name, start time, registered volunteer count.
+User Location Dot
+
+---PAGE BREAK---
+Custom AnimatedMarker, 20dp
+Blue fill, white 6dp ring, outer accuracy ring (translucent blue, size
+proportional to GPS accuracy value). Position updates via
+watchPositionAsync (accuracy: HIGH, distanceInterval: 5m). Each
+update smoothly animates via Reanimated.
+Distance Label
+Floating pill, above status card
+Amber dot + "[Xm from check-in zone]" white pill. Updates on
+every GPS event. FadeOut on zone entry. Shows "You're inside the
+zone" green pill on entry (2s then fades).
+Status Card
+@gorhom/bottom-sheet, 2 snap points
+Collapsed 130dp (drag handle + drive name + current status).
+Expanded 65% screen (full drive details, team count, role
+description). White/dkCard bg, radius-xl top corners, shadow
+0,-4,20,rgba(0,0,0,0.12). Drag handle: 32dp wide, 4dp tall,
+gray200, centred.
+State: Outside Zone
+Amber status, card collapsed
+Amber pulsing dot + "Outside Check-In Zone" amber 15sp Bold.
+"[Xm away]" 13sp inkMuted. "Check-in is automatic — no action
+needed" inkMuted italic. Timer shows 00:00:00 or last known value
+with "(paused)" in amber.
+State: Approaching
+Brand status, <50m from boundary
+Brand pulsing dot + "Almost there…" 15sp Bold brand. Live
+distance countdown. Status card auto-expands.
+State: Checked In
+
+---PAGE BREAK---
+Green status, full confirmation
+Green pulsing dot + "Checked In ✓" green 15sp Bold. Live
+HH:MM:SS timer 20sp Mono brand colour — counting every second
+only when inZone=true. "Camera Unlocked" green pill with camera
+icon. "2 / 5 posts used" small row below timer. Zustand activeDrive
+populated.
+State: Left Zone Mid-Drive
+Amber status, timer paused
+Timer turns amber. "(paused)" label beside timer. Amber warning
+banner above status card: "You've left the drive zone — your active
+time is paused. Return to resume." Timer value freezes but does
+NOT reset.
+Check-In Celebration
+Full-screen Reanimated overlay
+Fires exactly once per geofence entry (useRef(false) guard).
+Sequence: (1) White overlay FadeIn 200ms. (2) Large green ✓ scale
+0→1.2→1.0 spring (damping 10, stiffness 120). (3) Confetti burst
+from {x: width/2, y: height/2} using react-native-confetti-cannon
+(brand + green + white). (4) Text FadeIn at 400ms delay: "You're
+In!" Display 28sp ExtraBold + drive name 17sp + "Your time is
+now being tracked automatically." 15sp inkLight. (5) Overlay
+FadeOut at 3.5s OR on tap. Do not shorten this sequence.
+DEV: Simulate Entry
+__DEV__ only, white pill, bottom-right
+"DEV: Simulate Entry" pill, 16dp from edge. Tap: sets inZone=true,
+writes POST /checkins, fires celebration, populates Zustand
+activeDrive, starts timer. Essential for demo — no physical
+movement required.
+DEV: Simulate Post
+__DEV__ only, appears AFTER DEV Entry
+
+---PAGE BREAK---
+"DEV: Simulate Post" pill appears below first pill after Simulate
+Entry. Tap: opens Post Composer pre-filled with "Loving this drive!
+🌊" + placeholder image. Submit: posts to feed with VerifiedBadge.
+postCount becomes 1/5. Demonstrates the full verified-posting flow
+without real movement.
+Check-Out Button
+Inside expanded status card
+"End My Shift" red outlined pill, full-width. Tap → confirmation
+bottom sheet: total active time, tasks X/Y, zone re-entries. "Confirm
+Check-Out" red PrimaryButton → PATCH /checkins/{id} → clears
+Zustand activeDrive → navigate to S8 Performance Card.
+👤 9. Screen S6 — Volunteer Profile & Verified Hours (Beat 4a:
+Participation History)
+The permanent, tamper-proof record of a volunteer's contribution.
+S6
+Volunteer Profile
+Auth Required · /(volunteer)/profile/[id]
+▼ Scroll for component spec
+Beat
+Beat 4 — Participation history. Every hour GPS-verified. Every
+endorsement manually awarded. Permanent profile.
+Data
+Hardcoded seed data for demo (Arjun Mehta — see Section 12).
+Own profile pulls live from Supabase.
+Purpose
+
+---PAGE BREAK---
+Must feel as trustworthy as a LinkedIn profile. The "Total Active
+Drive Time" stat is the most important number on this screen — it
+replaces the paper certificate.
+Component
+States / Variants
+Visual & Behaviour Spec
+Cover Photo
+200dp tall, full-bleed
+Default: animated brand gradient mesh. Tap camera overlay (owner
+only) → Expo ImagePicker. LinearGradient fade into profile body
+below.
+Settings Icon
+Gear icon, top-right, owner only
+28dp Pressable. Opens bottom sheet: [Edit Profile] [Notification
+Preferences] [Dark Mode Toggle] [Log Out] [Delete Account (red,
+destructive)]. Sheet 280dp height, radius-xl top.
+Identity Row
+Avatar + name + actions
+AvatarCircle 88dp, 3dp white ring + 3dp brand outer ring.
+Positioned -44dp from cover bottom (negative marginTop, creates
+overlap). Name H1 26sp Bold. "Volunteer" brand pill. Join date
+13sp inkMuted right.
+Active Hours — Primary Stat
+MOST IMPORTANT element on screen
+Full-width white card, 3dp green left border. Large "142 hrs"
+Display 28sp Bold green. "Total Active Drive Time" 13sp inkMuted.
+Subtitle: "(GPS-verified — time inside drive zones only)" 11sp
+
+---PAGE BREAK---
+inkMuted italic. This is the trust signal. It is NOT total "checked in"
+hours — it is hours physically inside the zone. Below: three smaller
+stats in a row — Events Attended | Drives Completed |
+Endorsements.
+Skill Pills
+Horizontal flex-wrap
+"Skills" H3 + "Edit" brand link (owner only). All three SkillPill tiers
+side by side. Tap endorsed pill → tooltip: "Endorsed by [NGO] at
+[Drive] on [Date]."
+Endorsements Section
+Grid of EndorsementBadge cards
+Header: "Endorsements" H2 + count. Subtitle: "Manually awarded
+by NGO coordinators. Cannot be self-earned." 13sp inkMuted italic.
+2-column grid of EndorsementBadge cards: emoji 32sp, badge name
+13sp Bold, "Endorsed by [NGO]" 11sp inkMuted, drive name + date
+10sp inkMuted. Tap → detail modal. Empty state: "No endorsements
+yet. Participate in drives to earn them."
+Drive History
+Accordion list, newest first
+"Drive History" H3. Each row: NGO logo 40dp, drive name 15sp
+Bold, role 13sp inkLight, active hours 13sp Bold green right, date
+11sp inkMuted, green ✓ far left. Tap → expands: task summary +
+endorsements from that drive.
+Verified Seal Card
+Full-width, 3dp brand left border
+Shield icon + "ActiVibe Verified" H2. "Every hour confirmed by
+GPS geofence presence. Every endorsement is a deliberate award
+from an NGO coordinator." 13sp inkLight. Looks like a certificate.
+Share Footer
+
+---PAGE BREAK---
+Sticky, owner only
+One pill: [Save as Image]. react-native-view-shot captures the
+profile summary section (avatar, active hours stat, top
+endorsements) → native share sheet. User can then share to any app
+from the OS share sheet. This keeps implementation simple while
+enabling sharing.
+📊 10. Screen S7 — Drive Analytics (Beat 3: Engagement Reports)
+The proof that automation works. Every row is a real GPS-tracked
+volunteer.
+S7
+Drive Analytics
+NGO Admin | Founder · /(ngo)/drives/[id]/analytics
+▼ Scroll for component spec
+Beat
+Beat 3 — Engagement reports. NGO sees every volunteer, their
+exact active time, attendance rate, tasks. All automatic — zero
+manual data entry.
+Data
+Hardcoded seed data for demo (Greenpeace Mumbai — see Section
+12). Charts built as plain View bars — no chart library needed.
+Key Copy
+Every number on this screen comes from GPS geofence tracking. No
+manual input. This is the direct answer to "automated attendance
+tracking system that logs participation history and generates
+engagement reports."
+
+---PAGE BREAK---
+Component
+States / Variants
+Visual & Behaviour Spec
+Screen Header
+white/dkCard fixed top
+"Drive Analytics" H1. Drive name subtitle 15sp inkMuted. Export
+icon top-right (CSV via native share sheet — stub for demo). "GPS
+Tracked" green verified pill beside drive name.
+Summary Stats Row
+4 StatCards, horizontal scroll
+"Total Volunteers" | "Avg Active Time" | "Total Collective Hours" |
+"Attendance Rate". Each StatCard 160dp wide, radius-xl. Value 24sp
+Bold brand. Label 13sp inkMuted. Trend arrow 11sp. E.g. "82%"
+Attendance Rate with "↑ 12%" green trend.
+GPS Verified Banner
+teal callout, full-width
+"✓ All data automatically tracked by GPS geofence. Zero manual
+input from NGO staff." Teal left-bar callout box. 18sp ink. This copy
+is deliberate — it answers the brief directly.
+Per-Volunteer Active Time
+Horizontal bar chart, View-based
+"Active Time Per Volunteer" H2. Each row: AvatarCircle 28dp +
+name 13sp Bold + bar (View, category role colour fill, width
+proportional to active time vs max) + time label 13sp Bold green
+right. Sorted by time descending. Top performer row highlighted
+with subtle brandLight background. No chart library — plain View
+elements.
+
+---PAGE BREAK---
+Attendance Funnel
+3-step visual funnel
+"Registered → Checked In → Completed" funnel. Each step: count
+20sp Bold + label 13sp inkMuted + % conversion 13sp. Colours:
+registered=brand, checked-in=green, completed=teal. Visual:
+three View bars decreasing in width, rounded top corners, centred.
+Percentage labels between steps as arrows.
+Role Fill Rate
+Grid of role status rows
+"Role Breakdown" H2. Each role: category pill + role name + "X of
+Y slots active" + progress bar (View, green fill) + "X hrs avg" green
+right. Under-filled roles amber.
+Zone Time Distribution
+Histogram, View-based
+"Activity by Time of Day" H2. X-axis: hours (6am–8pm). Y-axis:
+volunteer count in zone. Bars: View height proportional to count.
+Colour: brand. Shows peak times visually. Built with 14 View bars
+in a row.
+Export Row
+Sticky footer
+"Export as CSV" brand outlined PrimaryButton, full-width 52dp. Tap
+→ generates CSV string with columns: Volunteer Name, Role,
+Check-In Time, Check-Out Time, Active Zone Time (minutes), Tasks
+Completed, Endorsements. Native share sheet. For demo: generates
+from hardcoded seed data.
+S7B — Endorsement Award Centre (accessed from
+same screen via "Award Endorsements" tab)
+
+---PAGE BREAK---
+Component
+States / Variants
+Visual & Behaviour Spec
+Tab Switch
+Two tabs: "Analytics" | "Endorsements"
+Tab underline indicator slides. Endorsements tab shows badge
+award UI.
+Header
+"Recognise Your Team" H1
+Subtitle: "Endorsements are permanent, manually awarded, and
+quota-limited. They cannot be self-earned." 15sp inkLight italic.
+Approve All Button
+PrimaryButton brand, below header
+"Approve All AI Recommendations". AI has suggested best
+performers per badge based on active time + tasks. Tap →
+confirmation modal: lists all suggested awards with quota check.
+"Award 6 endorsements to 4 volunteers — quotas will be respected."
+Confirm → awards all within quota. Cannot be undone.
+Volunteer List
+FlatList, clean rows
+AvatarCircle 52dp + name H3 + role 13sp inkLight + GPS active
+hours 13sp Bold green right + "Award Endorsement" teal outlined
+pill. Gray200 dividers.
+Badge Award Sheet
+Bottom sheet per volunteer, 65% height
+Volunteer name H2. Platform badges: 8-tile 3-col grid, 80dp tiles.
+
+---PAGE BREAK---
+Emoji 32sp, name 11sp. Selected: 2dp brand border + ✓. Quota
+chip per badge: "2 of 3 slots left." Grayed + lock when quota full.
+"Award to [Name]" brand CTA, disabled until selected.
+Award Animation
+Reanimated arc flight
+Badge emoji flies from Award button (useSharedValue x+y) along
+Bezier arc (withTiming + Easing.bezier) to land beside volunteer
+name. Spring bounce on arrival (damping 12, stiffness 150). Green
+toast: "[Badge] endorsed to [Name]!"
+Quota Enforcement
+Hard limit: N per badge per drive
+API enforces. UI shows lock + "All 3 awarded" when quota met.
+Tooltip: "Quota ensures endorsements remain meaningful — only
+the top performers earn each badge per drive."
+🏅 11. Screen S8 — Performance Card (Beat 4b: Shareable
+Participation Proof)
+The moment that replaces a paper certificate.
+S8
+Performance Card
+Post-Checkout · /(shared)/performance-card
+▼ Scroll for component spec
+Beat
+Beat 4 — Participation history made shareable. GPS-verified,
+permanent, beautiful.
+
+---PAGE BREAK---
+Trigger
+Auto-shows after volunteer taps "Confirm Check-Out" OR when
+drive is ended by NGO (push notification opens card on next app
+open).
+Output
+Shareable image card (PNG via react-native-view-shot) + PDF
+(server-side generation via FastAPI).
+Component
+States / Variants
+Visual & Behaviour Spec
+Card Design
+Brand gradient bg, full-screen hero
+Diagonal brand→brandMid gradient background. White text
+throughout. [Top bar]: ActiVibe logo 20dp left + "GPS Verified"
+green pill right. [Centre]: AvatarCircle 72dp + volunteer name H1
+white. Drive name H3 white. NGO logo 28dp + NGO name 13sp
+white row. [Primary stat]: "Active Drive Time" 13sp inkMuted white
+above, "01:23:45" Display 32sp ExtraBold white — the biggest
+element on the card. [Secondary row]: "Tasks: 4 of 5 completed" |
+"Zone entries: 2". [Endorsements]: shows badge emoji row (or
+"Endorsements pending" amber pill if not yet awarded). [Bottom]:
+drive date + location 13sp. Fine print: "GPS-verified by ActiVibe
+geofence. Tamper-proof permanent record." 10sp
+rgba(255,255,255,0.6).
+Share Options Row
+2 action pills, horizontal, below card
+[Save as Image]: react-native-view-shot captures the performance
+card View → native share sheet (user can AirDrop, save to camera
+roll, message). [Post to Feed]: Opens Post Composer pre-filled with
+
+---PAGE BREAK---
+performance card image + caption "Just completed [Drive] with
+[NGO]! 01:23:45 of GPS-tracked volunteering. 🌿".
+GeoVerifiedBadge (post_event variant) auto-applied. Uses drive
+post-window if still active. Two pills, brand outlined variant, 52dp
+height, full-width each.
+Reveal Animation
+Reanimated slide-up + stagger
+Card slides up from translateY:100 to 0, spring (damping 18,
+stiffness 200) + opacity 0→1. Text elements stagger: avatar first
+(0ms), then name (100ms), then primary stat (200ms), then
+secondary row (350ms), then share buttons (500ms). Total
+sequence 1.4s. Feels earned.
+Empty Endorsements State
+When NGO hasn't awarded yet
+"Endorsements Pending" amber pill on card. Below share row: "Your
+NGO coordinator may award endorsements after reviewing the
+drive. Check back soon." 13sp inkMuted. Card is still fully shareable
+— the hours are verified regardless.
+🗄️ 12. Hardcoded Seed Data
+Exact values for every hardcoded screen. Use these precisely —
+consistent data makes the demo feel rehearsed and real.
+12.1 Volunteer — Arjun Mehta
+Full Name
+Arjun Mehta
+Location
+
+---PAGE BREAK---
+Mumbai, Maharashtra
+Joined
+March 2024
+Total Active Hours
+142 hrs (GPS-verified — use this exact number in demo)
+Drives Completed
+8
+Endorsements
+4
+Bio
+"Passionate about sustainable development and community action.
+Available weekends."
+Skill Pills
+[Tech & IT — endorsed] [Logistics & Ops — AI-inferred]
+[Environment — self-declared]
+Endorsements List
+🌟 Star Volunteer (Greenpeace Mumbai • Versova Cleanup) | ⚡
+Quick Responder (Teach For India) | 🎯 Top Performer (iVolunteer)
+| 🌱 First Drive (NSS Mumbai)
+12.2 NGO — Greenpeace Mumbai
+Name
+Greenpeace Mumbai
+
+---PAGE BREAK---
+Cause
+Environment & Climate
+City
+Mumbai, Maharashtra (lat: 19.0760, lng: 72.8777)
+PAN
+AAGCG1234C (masked for display: AXXCG1234C)
+KPI: Active Drives
+3
+KPI: Total Volunteers
+247
+KPI: Avg Check-In Rate
+82%
+KPI: Endorsements Awarded
+34
+12.3 Active Demo Drive
+Drive Name
+Versova Beach Cleanup Drive
+NGO
+Greenpeace Mumbai
+Date
+
+---PAGE BREAK---
+15 June 2025, 8:00 AM – 12:00 PM
+Location
+Versova Beach, Mumbai (lat: 19.1236, lng: 72.8175)
+Geofence Radius
+500 metres
+Registered
+23 / 30 volunteers
+Status
+Live (for demo purposes)
+Drive Role (Arjun)
+Logistics Coordinator — Slot 2 of 4
+Arjun Tasks
+1. Coordinate equipment distribution 2. Manage volunteer zones 3.
+Track waste collected 4. Coordinate transport 5. Final headcount
+12.4 Feed Seed Posts (5 cards)
+Post 1 (NGO drive announcement): Greenpeace Mumbai — "Join us
+for Versova Beach Cleanup on 15 June. Register now — 7 spots
+left." [Register for Drive] teal CTA. 34 likes.
+Post 2 (Volunteer, live, GPS-verified): Arjun Mehta at Greenpeace
+Mumbai — "Live from the beach! This is what community looks
+like. 🌊" VerifiedBadge (live). 12 likes.
+Post 3 (Drive Recommendation Card, injected index 3): "✨
+Matched for You — Greenpeace needs Logistics & Ops skills at Tree
+
+---PAGE BREAK---
+Plantation Drive on 22 Jun."
+Post 4 (NGO update): Teach For India — "We completed our 10th
+literacy session. 45 children attended." 28 likes.
+Post 5 (Volunteer, post-event): Priya Sharma at Teach For India —
+"Just wrapped 4 hours of tutoring. Exhausted but fulfilled."
+VerifiedBadge (post_event). 9 likes.
+12.5 Notifications Seed (4 items)
+[Drive Confirmed] Greenpeace Mumbai confirmed your registration
+for Versova Beach Cleanup on 15 Jun. "View Drive →"
+[Drive Reminder] Versova Beach Cleanup starts in 2 hours. "Get
+Directions →"
+[Endorsement] Greenpeace Mumbai endorsed you with "Star
+Volunteer" for Versova Cleanup. "View Endorsement →"
+[Drive Update] Greenpeace Mumbai posted an update: "Bring
+gloves and sunscreen!" "View Post →"
+12.6 Analytics Seed — Versova Drive
+Total Volunteers: 23
+Avg Active Zone Time: 2 hrs 41 min
+Total Collective Hours: 61.5 hrs
+Attendance Rate: 82% (registered → checked-in)
+Volunteer
+
+---PAGE BREAK---
+Role
+Active Zone Time
+Tasks Done
+Endorsements
+Arjun Mehta
+Logistics Coord.
+2:47:23
+4 of 5
+1
+Priya Sharma
+Media & Content
+2:31:09
+3 of 3
+1
+Rohan Desai
+Waste Sorter
+2:58:01
+5 of 5
+2
+Aisha Khan
+Team Coordinator
+2:15:44
+
+---PAGE BREAK---
+4 of 4
+1
+Vikram Nair
+Equipment Setup
+1:52:33
+3 of 5
+0
+⚙️ 13. Build Order & Acceptance Criteria
+Phase by phase. Acceptance criteria = what must work before the
+next phase starts.
+Phase
+Priority
+Build
+Must Work Before Moving On
+Phase 0 Foundation
+Hours 0–2
+Expo project init. NativeWind configured. Expo Router structure
+from Section 3.1. Supabase client. 3 Zustand stores (auth,
+activeEvent, feed). All 8 primitive components from Section 2.5.
+App loads in Expo Go. Navigate between 3 routes. Dark mode
+toggle changes theme. All component variants render.
+Phase 1 Auth
+
+---PAGE BREAK---
+Hours 2–4
+S1 Splash (dark mode toggle). S2 Auth (Google OAuth live). S2B
+Skill onboarding (Supabase write). S2C NGO registration (PAN
+validation + Places). Role-based routing.
+Google sign-in works. PAN validates correctly. Volunteer routes to
+Feed. NGO routes to NGO Feed. Role stored in Supabase users table.
+Phase 2 Map — P0
+Hours 4–9
+S5 Live Geofence Map completely. expo-location live GPS. POST /
+checkins Supabase write. Timer pause/resume on zone exit/entry.
+All status card states. Celebration animation. DEV Simulate Entry +
+DEV Simulate Post. Check-Out flow + Performance Card route.
+On physical device: GPS enters geofence → check-in writes → timer
+starts. Step outside: timer pauses with amber state. DEV buttons
+both work. Checkout clears Zustand and navigates to S8.
+Phase 3 Feed + Drive
+Hours 9–14
+S3 Feed with hardcoded seed data. Both tabs (For You +
+Community). Post composer with limit logic. VerifiedBadge on
+volunteer posts. S4 Create Drive with form, geofence map draw,
+anti-scam check, Supabase write. Drive appears in feed after
+publish.
+Feed renders all 5 post types. Drive recommendation card injected
+at index 3. Composer absent outside zone / absent when limit
+reached. Create Drive publishes and drive appears in NGO feed.
+Phase 4 Profile + Analytics
+Hours 14–19
+S6 Volunteer Profile (seed data). Active hours stat prominent.
+Endorsements section. Share to Instagram + X + Save Image. S7
+
+---PAGE BREAK---
+Drive Analytics with per-volunteer bar chart, funnel, export. S7B
+Endorsement Award Centre with quota, Approve All, arc animation.
+Profile shares trigger correct OS intents. Analytics bar chart renders
+correctly with seed data. Quota enforcement blocks award at limit.
+Arc animation completes end-to-end.
+Phase 5 Auth Flows + Polish
+Hours 19–22
+S2 NGO registration complete. S8 Performance Card reveal
+animation. Notifications screen (S3C) with 4 seed items. Dark mode
+consistency pass across all 8 screens. Pull-to-refresh on Feed.
+Full end-to-end demo run without error. Dark mode looks correct
+on every screen. Performance card share intents open. 90-second
+demo practiced and timing confirmed.
+13.1 The 90-Second Judge Demo Script
+Practise this until it runs in exactly 90 seconds. Every second is
+deliberate.
+(0–5s) Open app. Dark animated splash. Wordmark fades in. "I'm a
+Volunteer." Quick Google sign-in.
+(5–12s) Skill onboarding — tap Environment + Logistics. "Let's Go
+→". Land on Feed. Scroll to show all 5 post types. Point to
+VerifiedBadge on Arjun's post: "That badge means this was posted
+live from inside the drive zone."
+(12–25s) Tap Map tab. Show pulsing geofence. "This is the drive
+zone. Watch what happens." Tap "DEV: Simulate Entry." Pause 1
+second. Confetti fires. Green ✓. "You're In!" Timer starts. "GPS
+confirmed. Supabase record written. Timer is running —
+automatically. No button pressed by the NGO."
+
+---PAGE BREAK---
+(25–29s) Tap "DEV: Simulate Post." Composer pre-fills. Submit.
+Back to Feed — post appears with green VerifiedBadge. "That post
+is geofence-locked. It couldn't be shared from anywhere else."
+(29–35s) Go back to Map. Tap outside simulation (or explain: "If the
+volunteer steps outside, the timer pauses amber. Returns →
+resumes. We track real presence, not check-in clicks.")
+(35–50s) Switch to NGO account. Create Drive: type "Beach cleanup
+for 60 volunteers at Versova." Set zone on mini-map. Publish. Drive
+appears in feed. "90 seconds. Drive is live. Volunteers can register."
+(50–65s) Open Drive Analytics. Point to per-volunteer bar chart:
+"Rohan was active for 2 hours 58 minutes — GPS verified. Arjun
+2:47. This report wrote itself. Zero manual input." Point to
+attendance funnel: "23 of 28 registered showed up. That's your
+engagement report."
+(65–80s) Navigate to Arjun's profile. Point to "142 hrs Total Active
+Drive Time" — "This number is GPS hours inside drive zones. Not
+self-reported. Not 'attended'. Actually physically present." Show
+endorsements section: "These four badges were manually awarded
+by NGO coordinators. They cannot be self-earned. This is the
+volunteer's verified record."
+(80–90s) Tap Save as Image on the performance card. "One tap —
+their GPS-verified record is saved and shareable. This replaces the
+paper certificate." Final line: "Other NGO tools track registrations.
+We track real presence. Every hour GPS-confirmed. Every badge
+manually endorsed. This is what verified social impact looks like."
+✨ 14. Animations — The 5 That Must Work
+These carry the demo. Build them correctly or cut them. No broken
+animations.
+Animation
+Screen
+
+---PAGE BREAK---
+Library
+Exact Implementation
+Check-In Celebration
+S5 Map
+Reanimated 3 + react-native-confetti-cannon
+Full-screen white overlay FadeIn 200ms. Large green ✓ scale
+0→1.2→1.0 spring (damping 10, stiffness 120). Confetti from
+{x:width/2, y:height/2} in brand+green+white. Text FadeIn delay
+400ms: "You're In!" Display 28sp + drive name 17sp + tracking
+message 15sp. Auto-FadeOut at 3500ms or on tap. useRef(false)
+guard: fires once per geofence entry only.
+Geofence Pulse Ring
+S5 Map
+Reanimated 3 withRepeat
+Outer MapCircle: withRepeat(withTiming(1.15, {duration:1250,
+easing:Easing.inOut(Easing.ease)}), -1, true). Creates breathing
+heartbeat on the zone. This visual alone communicates "live
+tracking" to the judge without any words.
+Endorsement Arc
+S7B Badges
+Reanimated 3 useSharedValue withTiming + Easing.bezier
+Badge emoji: useSharedValue for x and y positions. withTiming
+drives x along Bezier curve from Award button coordinates to
+volunteer name coordinates. withTiming drives y along inverted
+parabola. Spring bounce on arrival (damping 12, stiffness 150).
+Count increments. Green toast: "[Badge] endorsed to [Name]!"
+Performance Card Reveal
+
+---PAGE BREAK---
+S8 Perf Card
+Reanimated 3 withSpring + stagger
+Card: translateY 100→0, spring (damping 18, stiffness 200) +
+opacity 0→1. Text stagger: avatar 0ms, name 100ms, primary time
+stat 200ms, secondary row 350ms, share buttons 500ms. Total 1.4s.
+Timer Pause/Resume
+S5 Map
+Reanimated 3 useAnimatedStyle
+Timer text colour: green→amber transition 300ms on inZone
+change. "(paused)" label FadeIn/FadeOut 200ms. Communicates the
+automation clearly without any explanation needed.
+If it's broken, cut it
+A broken animation in a demo is worse than no animation. If the
+Endorsement Arc isn't working with 2 hours left before submission,
+remove it and replace with a simple green toast. The judges do not
+need the arc. They need the four beats.
+📦 15. Dependencies
+All packages for demo scope. Exact versions.
+Package
+Version
+Purpose
+expo
+~51.0.0
+
+---PAGE BREAK---
+Core SDK
+expo-router
+~3.5.0
+File-based navigation, tabs, modals
+expo-location
+~17.0.0
+watchPositionAsync — real GPS. The core of Beat 2.
+expo-notifications
+~0.28.0
+Push tokens. Drive reminders. Endorsement alerts.
+expo-image-picker
+~15.0.0
+Profile photo, post images
+react-native-maps
+~1.14.0
+MapView, MapCircle, MapMarker overlays
+react-native-reanimated
+~3.10.0
+All animations — celebration, pulse ring, arc, timer transition
+react-native-gesture-handler
+~2.16.0
+Swipe actions, bottom sheet interaction
+
+---PAGE BREAK---
+@gorhom/bottom-sheet
+~4.6.0
+S5 status card, S7B badge award sheet, all bottom sheets
+react-native-view-shot
+~3.8.0
+Performance card and profile → PNG capture for sharing
+react-native-confetti-cannon
+~1.5.0
+Check-in celebration
+nativewind
+~4.1.0
+Tailwind utility classes in React Native
+@supabase/supabase-js
+~2.43.0
+Auth, database, realtime. The full backend client.
+zustand
+~4.5.0
+3 stores: authStore, activeEventStore, feedStore + notifStore
+@tanstack/react-query
+~5.32.0
+Feed, analytics, profile data fetching and caching
+@react-native-async-storage/async-storage
+
+---PAGE BREAK---
+~1.23.0
+Dark mode preference, onboarding flags
+date-fns
+~3.6.0
+All date formatting
+axios
+~1.6.0
+HTTP client for FastAPI endpoints
+typescript
+~5.3.0
+Type safety. Required.
+— End of ActiVibe Demo Prototype PRD —
+GPS-verified. Automatically tracked. Genuinely earned. • ActiVibe
+
+---PAGE BREAK---
